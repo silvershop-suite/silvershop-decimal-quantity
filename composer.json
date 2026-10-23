@@ -1,0 +1,65 @@
+{
+    "name": "silvershop-suite/decimal-quantity",
+    "description": "Per-product decimal / fractional order quantities for SilverShop (CMS 6) — sell some products by weight/length/area (kg, m², m) while others stay whole-unit, in one catalogue. Opt-in per product (QuantityIsDecimal + unit label + step/precision/min/max); carries the decimal beside core's integer quantity via extension hooks (no core overrides), with guarded decimal stock when silvershop/stock is installed.",
+    "type": "silverstripe-vendormodule",
+    "keywords": ["silverstripe", "silvershop", "ecommerce", "quantity", "decimal", "fractional", "unit-of-measure", "stock"],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Remy Vaartjes",
+            "email": "remy@xd.nl",
+            "role": "Lead developer"
+        },
+        {
+            "name": "SilverShop-Suite Contributors"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "silverstripe/framework": "^6.0",
+        "silverstripe/cms": "^6.0",
+        "silvershop/core": "^6.2"
+    },
+    "require-dev": {
+        "cambis/silverstan": "^2.1",
+        "silverstripe/recipe-testing": "^4",
+        "silverstripe/sqlite3": "^4",
+        "squizlabs/php_codesniffer": "^3.0"
+    },
+    "suggest": {
+        "silvershop/stock": "Decimal per-warehouse stock for decimal-quantity products (guarded; without it pricing/cart/display still work).",
+        "tractorcow/silverstripe-fluent": "Localise the per-product unit-of-measure label (m²/kg/…) per locale.",
+        "silvershop-suite/storefront": "Renders the decimal quantity input on the PDP/cart; any theme works once the field is wired in."
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "stan": "vendor/bin/phpstan analyse --configuration=phpstan.neon --memory-limit=-1",
+        "lint": "vendor/bin/phpcs",
+        "lint:fix": "vendor/bin/phpcbf"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "silverstripe/recipe-plugin": true,
+            "silverstripe/vendor-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "SilverShop\\DecimalQuantity\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SilverShop\\DecimalQuantity\\Tests\\": "tests/php/"
+        }
+    },
+    "prefer-stable": true,
+    "minimum-stability": "dev"
+}

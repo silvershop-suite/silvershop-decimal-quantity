@@ -1,0 +1,23 @@
+---
+Name: silvershop-decimal-quantity
+After:
+  - silvershop
+---
+# Per-product decimal quantities. The extensions are inert on a product until its QuantityIsDecimal flag
+# is set, so applying them shop-wide is safe. Stock integration is a separate guarded document (added in
+# Phase 3, gated on moduleexists: 'silvershop/stock').
+SilverShop\Page\Product:
+  extensions:
+    - SilverShop\DecimalQuantity\Extension\ProductDecimalQuantityExtension
+
+SilverShop\Model\Variation\Variation:
+  extensions:
+    - SilverShop\DecimalQuantity\Extension\VariationDecimalQuantityExtension
+
+SilverShop\Model\OrderItem:
+  extensions:
+    - SilverShop\DecimalQuantity\Extension\OrderItemDecimalQuantityExtension
+
+SilverShop\Model\Order:
+  extensions:
+    - SilverShop\DecimalQuantity\Extension\OrderDecimalQuantityExtension
