@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace SilverShop\DecimalQuantity\Extension;
 
+use SilverShop\DecimalQuantity\Control\DecimalCartController;
+use SilverShop\DecimalQuantity\DecimalQuantityRules;
 use SilverShop\Model\OrderItem;
 use SilverStripe\Core\Extension;
 
@@ -92,13 +94,68 @@ class OrderItemDecimalQuantityExtension extends Extension
         }
     }
 
-    private function unit(): string
+    // --- Storefront cart-line helpers ------------------------------------------------------------
+    // The cart page and side-cart branch on $IsDecimalLine to render a decimal input (step/min/max +
+    // unit) that posts `quantitydecimal` to $DecimalSetLink, instead of the whole-unit ± stepper.
+
+    public function DecimalQuantityUnit(): string
+    {
+        return $this->rules()->unit;
+    }
+
+    public function DecimalQuantityStep(): string
+    {
+        return $this->numberString($this->rules()->step);
+    }
+
+    public function DecimalQuantityMin(): string
+    {
+        return $this->numberString($this->rules()->min);
+    }
+
+    public function DecimalQuantityMax(): string
+    {
+        $max = $this->rules()->max;
+
+        return $max === null ? '' : $this->numberString($max);
+    }
+
+    /**
+     * The URL this line's decimal update form posts `quantitydecimal` to (server snaps + sets quantity).
+     */
+    public function DecimalSetLink(): string
+    {
+        $buyable = $this->owner->Buyable();
+        if (!$buyable) {
+            return '';
+        }
+
+        return DecimalCartController::set_link($buyable);
+    }
+
+    /**
+     * This line's buyable rules, or a disabled default for an exotic buyable without the extension (so the
+     * template accessors never dereference null — they only render for decimal lines anyway).
+     */
+    private function rules(): DecimalQuantityRules
     {
         $buyable = $this->owner->Buyable();
         if ($buyable && $buyable->hasMethod('getDecimalQuantityRules')) {
-            return $buyable->getDecimalQuantityRules()->unit;
+            return $buyable->getDecimalQuantityRules();
         }
 
-        return '';
+        return new DecimalQuantityRules(false, '', 2, 0.01, 0.01, null);
+    }
+
+    private function numberString(float $value): string
+    {
+        $formatted = rtrim(rtrim(number_format($value, 4, '.', ''), '0'), '.');
+
+        return $formatted === '' ? '0' : $formatted;
+    }
+
+    private function unit(): string
+    {
+        return $this->rules()->unit;
     }
 }

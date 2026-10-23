@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace SilverShop\DecimalQuantity\Form;
 
+use SilverShop\DecimalQuantity\Control\DecimalCartController;
 use SilverShop\DecimalQuantity\DecimalQuantityRules;
-use SilverShop\DecimalQuantity\Extension\CartPageControllerDecimalQuantityExtension;
 use SilverShop\Forms\ShopQuantityField;
 use SilverStripe\Forms\NumericField;
 
@@ -82,7 +82,7 @@ class DecimalShopQuantityField extends ShopQuantityField
     }
 
     /**
-     * The URL the storefront posts the decimal to (the dedicated server action).
+     * The URL the storefront posts the decimal to (the dedicated decimal cart endpoint).
      */
     public function SetDecimalQuantityLink(): string
     {
@@ -90,7 +90,7 @@ class DecimalShopQuantityField extends ShopQuantityField
             return '';
         }
 
-        return CartPageControllerDecimalQuantityExtension::set_decimal_quantity_item_link(
+        return DecimalCartController::set_link(
             $this->buyable,
             $this->item->uniquedata()
         );

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SilverShop\DecimalQuantity\Extension;
 
+use SilverShop\DecimalQuantity\Control\DecimalCartController;
 use SilverShop\DecimalQuantity\DecimalQuantityRules;
 use SilverShop\Page\Product;
 use SilverStripe\Core\Config\Config;
@@ -90,6 +91,50 @@ class ProductDecimalQuantityExtension extends Extension
             $min,
             $max
         );
+    }
+
+    // --- Storefront template helpers -------------------------------------------------------------
+
+    public function IsDecimalQuantity(): bool
+    {
+        return $this->getDecimalQuantityRules()->enabled;
+    }
+
+    public function DecimalQuantityUnit(): string
+    {
+        return $this->getDecimalQuantityRules()->unit;
+    }
+
+    public function DecimalQuantityStep(): string
+    {
+        return $this->numberString($this->getDecimalQuantityRules()->step);
+    }
+
+    public function DecimalQuantityMin(): string
+    {
+        return $this->numberString($this->getDecimalQuantityRules()->min);
+    }
+
+    public function DecimalQuantityMax(): string
+    {
+        $max = $this->getDecimalQuantityRules()->max;
+
+        return $max === null ? '' : $this->numberString($max);
+    }
+
+    /**
+     * The URL the storefront PDP decimal form posts `quantitydecimal` to (server derives the mirror).
+     */
+    public function DecimalAddLink(): string
+    {
+        return DecimalCartController::add_link($this->owner);
+    }
+
+    private function numberString(float $value): string
+    {
+        $formatted = rtrim(rtrim(number_format($value, 4, '.', ''), '0'), '.');
+
+        return $formatted === '' ? '0' : $formatted;
     }
 
     public function updateCMSFields(FieldList $fields): void

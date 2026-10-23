@@ -27,15 +27,22 @@ Name: silvershop-decimal-quantity-storefront
 After:
   - '#silvershop-decimal-quantity'
 ---
-# Storefront: the decimal cart-line widget (falls back to the integer widget for non-decimal lines) + the
-# dedicated setdecimalquantity cart action.
+# Storefront: the decimal cart-line widget (falls back to the integer widget for non-decimal lines).
 SilverStripe\Core\Injector\Injector:
   SilverShop\Forms\ShopQuantityField:
     class: SilverShop\DecimalQuantity\Form\DecimalShopQuantityField
 
-SilverShop\Page\CartPageController:
-  extensions:
-    - SilverShop\DecimalQuantity\Extension\CartPageControllerDecimalQuantityExtension
+---
+Name: silvershop-decimal-quantity-routes
+After:
+  - '#silvershop-routes'
+---
+# Dedicated Director route for the decimal cart endpoint. A standalone controller (not a CartPageController
+# action) because core's CartPageController::handleRequest() only dispatches the cart methods its own
+# directorActionToCartMethod() map knows — an extension-added action is never reached.
+SilverStripe\Control\Director:
+  rules:
+    'decimalcart//$Action/$Buyable/$ID': SilverShop\DecimalQuantity\Control\DecimalCartController
 
 ---
 Name: silvershop-decimal-quantity-stock
