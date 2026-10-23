@@ -68,13 +68,24 @@ snaps it.
 
 ## Storefront
 
-`OrderItem::QuantityField()` returns an Injector-overridden `DecimalShopQuantityField` that renders a
-decimal `<input>` (step/min/max from the product) **for decimal lines**, and falls straight back to the
-integer widget for everything else. A dedicated **`setdecimalquantity`** cart action lets the storefront
-post just the decimal in a `quantitydecimal` var — the server validates/snaps it and derives the integer
-ceil mirror; the piggyback path (sending `quantitydecimal` alongside core's `setquantity`) also works.
-Override the `DecimalQuantity/Form/DecimalShopQuantityField` template in your theme to restyle; theme JS
-reads the input's `data-setquantity-link` and posts the decimal.
+Reads go through an Injector-overridden `DecimalShopQuantityField` (`OrderItem::QuantityField()`) that
+renders a decimal `<input>` (step/min/max from the product) **for decimal lines** and falls straight back
+to the integer widget for everything else.
+
+Writes go through a dedicated **`DecimalCartController`**, routed at `/decimalcart/…` — **not** a cart-page
+action. Core's `CartPageController` has a custom `handleRequest()` that only dispatches its own built-in
+actions (add/remove/setquantity/…), so an extension-added action on it is silently unreachable; a
+standalone Director-routed controller sidesteps that dispatcher. It exposes two actions, each taking just a
+`quantitydecimal` and the buyable:
+
+- **`add`** — accumulate (the PDP "add to cart"): new quantity = current + posted;
+- **`set`** — absolute (the cart "update"): new quantity = posted.
+
+Both validate/snap the decimal server-side (`DecimalQuantityValidator`) and derive the integer ceil mirror.
+The bundled `silvershop-suite/storefront` wiring posts plain **no-JS forms** to `$DecimalAddLink` /
+`$DecimalSetLink` (PDP buy box, cart-page line and side-cart), so it works without JavaScript. The
+piggyback path — sending `quantitydecimal` alongside core's own `setquantity`/`add` — also works, and is
+how the API carries the decimal.
 
 ## Stock
 
