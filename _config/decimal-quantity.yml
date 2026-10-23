@@ -21,3 +21,18 @@ SilverShop\Model\OrderItem:
 SilverShop\Model\Order:
   extensions:
     - SilverShop\DecimalQuantity\Extension\OrderDecimalQuantityExtension
+
+---
+Name: silvershop-decimal-quantity-storefront
+After:
+  - '#silvershop-decimal-quantity'
+---
+# Storefront: the decimal cart-line widget (falls back to the integer widget for non-decimal lines) + the
+# dedicated setdecimalquantity cart action.
+SilverStripe\Core\Injector\Injector:
+  SilverShop\Forms\ShopQuantityField:
+    class: SilverShop\DecimalQuantity\Form\DecimalShopQuantityField
+
+SilverShop\Page\CartPageController:
+  extensions:
+    - SilverShop\DecimalQuantity\Extension\CartPageControllerDecimalQuantityExtension

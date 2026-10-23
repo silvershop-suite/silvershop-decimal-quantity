@@ -8,3 +8,9 @@ parameters:
     treatPhpDocTypesAsCertain: false
     silverstan:
         includeTestOnly: true
+    ignoreErrors:
+        # getDecimalQuantityRules()/hasMethod() are reached through the Buyable *interface* type, but the
+        # concrete buyables (Product/Variation) are Extensible DataObjects carrying this module's extension;
+        # every call site is hasMethod()-guarded. silverstan can't see an extension method via the interface.
+        -
+            message: '#Call to an undefined method SilverShop\\Model\\Buyable::(hasMethod|getDecimalQuantityRules)\(\)#'

@@ -1,0 +1,9 @@
+en:
+  SilverShop\DecimalQuantity\Extension\ProductDecimalQuantityExtension:
+    db_QuantityIsDecimal: 'Sold in decimal / fractional quantities'
+    db_QuantityUnit: 'Unit of measure (e.g. m², kg, m)'
+    db_QuantityPrecision: 'Decimal places (0 = module default)'
+    db_QuantityStep: 'Step increment (0 = default)'
+    db_QuantityMin: 'Minimum quantity (0 = one step)'
+    db_QuantityMax: 'Maximum quantity (0 = unlimited)'
+    Tab_Quantity: 'Quantity'
