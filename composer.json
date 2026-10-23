@@ -24,7 +24,8 @@
         "cambis/silverstan": "^2.1",
         "silverstripe/recipe-testing": "^4",
         "silverstripe/sqlite3": "^4",
-        "squizlabs/php_codesniffer": "^3.0"
+        "squizlabs/php_codesniffer": "^3.0",
+        "silvershop/stock": "^6"
     },
     "suggest": {
         "silvershop/stock": "Decimal per-warehouse stock for decimal-quantity products (guarded; without it pricing/cart/display still work).",

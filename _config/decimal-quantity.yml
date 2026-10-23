@@ -36,3 +36,16 @@ SilverStripe\Core\Injector\Injector:
 SilverShop\Page\CartPageController:
   extensions:
     - SilverShop\DecimalQuantity\Extension\CartPageControllerDecimalQuantityExtension
+
+---
+Name: silvershop-decimal-quantity-stock
+Only:
+  moduleexists: 'silvershop/stock'
+After:
+  - '#silvershop-decimal-quantity'
+---
+# Swap the core stock extension for the decimal-aware subclass (only when silvershop/stock is installed).
+# The subclass inherits all stock behaviour and only changes the write path for decimal buyables.
+SilverStripe\Core\Injector\Injector:
+  SilverShop\Stock\Extensions\ProductStockExtension:
+    class: SilverShop\DecimalQuantity\Extension\DecimalProductStockExtension
