@@ -36,8 +36,9 @@ class OrderSerializerDecimalExtension extends Extension
             if ($item === null || !$item->hasMethod('isDecimalLine') || !$item->isDecimalLine()) {
                 continue;
             }
-            // Leave `quantity` as the base serializer's integer mirror (keeps the GraphQL Int type +
-            // existing consumers intact); add the exact decimal + a display string alongside it.
+            // `quantity` stays an Int (keeps the GraphQL Int type + existing consumers intact), set to the
+            // whole-unit ceil mirror; the exact amount + a display string are added alongside it.
+            $row['quantity'] = (int) $item->getField('Quantity');
             $row['quantityDecimal'] = (float) $item->getField('QuantityDecimal');
             $row['quantityNice'] = (string) $item->getNiceQuantity();
         }
