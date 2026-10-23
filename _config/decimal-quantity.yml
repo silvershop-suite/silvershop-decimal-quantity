@@ -49,3 +49,15 @@ After:
 SilverStripe\Core\Injector\Injector:
   SilverShop\Stock\Extensions\ProductStockExtension:
     class: SilverShop\DecimalQuantity\Extension\DecimalProductStockExtension
+
+---
+Name: silvershop-decimal-quantity-api
+Only:
+  moduleexists: 'silvershop-suite/api'
+After:
+  - '#silvershop-decimal-quantity'
+---
+# REST + GraphQL output carries the decimal quantity (api-graphql reuses the base serializers).
+SilverShop\Api\Serializer\OrderSerializer:
+  extensions:
+    - SilverShop\DecimalQuantity\Extension\OrderSerializerDecimalExtension

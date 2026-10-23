@@ -30,7 +30,8 @@
     "suggest": {
         "silvershop/stock": "Decimal per-warehouse stock for decimal-quantity products (guarded; without it pricing/cart/display still work).",
         "tractorcow/silverstripe-fluent": "Localise the per-product unit-of-measure label (m²/kg/…) per locale.",
-        "silvershop-suite/storefront": "Renders the decimal quantity input on the PDP/cart; any theme works once the field is wired in."
+        "silvershop-suite/storefront": "Renders the decimal quantity input on the PDP/cart; any theme works once the field is wired in.",
+        "silvershop-suite/api": "Carries the decimal quantity through the REST + GraphQL cart/order output (quantityDecimal)."
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
