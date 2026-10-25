@@ -11,6 +11,7 @@ use SilverShop\Page\CartPage;
 use SilverShop\Page\CartPageController;
 use SilverShop\ShopTools;
 use SilverStripe\Control\Controller;
+use SilverStripe\Control\Director;
 use SilverStripe\Control\HTTPRequest;
 use SilverStripe\Control\HTTPResponse;
 use SilverStripe\Core\ClassInfo;
@@ -135,7 +136,11 @@ class DecimalCartController extends Controller
         }
 
         $id = $buyable instanceof DataObject ? (string) $buyable->ID : '0';
+        // Root-relative (prepend baseURL): the link is posted from any storefront page — a nested product
+        // path included — and by the add-to-cart AJAX (new URL(action, href)), so a bare relative segment
+        // would resolve under the current path and 404.
         $link = Controller::join_links(
+            Director::baseURL(),
             self::config()->get('url_segment'),
             $action,
             ShopTools::sanitiseClassName(get_class($buyable)),

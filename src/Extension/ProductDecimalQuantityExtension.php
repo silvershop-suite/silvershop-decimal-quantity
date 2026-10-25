@@ -123,6 +123,24 @@ class ProductDecimalQuantityExtension extends Extension
     }
 
     /**
+     * A sensible pre-filled quantity for the PDP form: a whole 1 unit, clamped into [min, max] and
+     * snapped to the step grid — instead of the bare minimum (e.g. 0.05 kg), which is a poor default.
+     */
+    public function DecimalQuantityDefault(): string
+    {
+        $rules = $this->getDecimalQuantityRules();
+        $value = max(1.0, $rules->min);
+        if ($rules->max !== null && $value > $rules->max) {
+            $value = $rules->max;
+        }
+        if ($rules->step > 0) {
+            $value = $rules->min + round(($value - $rules->min) / $rules->step) * $rules->step;
+        }
+
+        return $this->numberString($value);
+    }
+
+    /**
      * The URL the storefront PDP decimal form posts `quantitydecimal` to (server derives the mirror).
      */
     public function DecimalAddLink(): string
