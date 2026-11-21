@@ -1,0 +1,20 @@
+de:
+  SilverShop\DecimalQuantity\Extension\ProductDecimalQuantityExtension:
+    db_QuantityIsDecimal: 'In Dezimal- / Teilmengen verkauft'
+    db_QuantityUnit: 'Maßeinheit (z. B. m², kg, m)'
+    db_QuantityPrecision: 'Nachkommastellen (0 = Modul-Standard)'
+    db_QuantityStep: 'Schrittweite (0 = Standard)'
+    db_QuantityMin: 'Mindestmenge (0 = ein Schritt)'
+    db_QuantityMax: 'Höchstmenge (0 = unbegrenzt)'
+    Tab_Quantity: 'Menge'
+  SilverShop\Model\Order:
+    Quantity: 'Menge'
+  SilverShop\Model\OrderItem:
+    db_QuantityDecimal: 'Dezimalmenge'
+  SilverShop\Page\Product:
+    db_QuantityIsDecimal: 'In Dezimal- / Teilmengen verkauft'
+    db_QuantityUnit: 'Maßeinheit (z. B. m², kg, m)'
+    db_QuantityPrecision: 'Nachkommastellen (0 = Modul-Standard)'
+    db_QuantityStep: 'Schrittweite (0 = Standard)'
+    db_QuantityMin: 'Mindestmenge (0 = ein Schritt)'
+    db_QuantityMax: 'Höchstmenge (0 = unbegrenzt)'

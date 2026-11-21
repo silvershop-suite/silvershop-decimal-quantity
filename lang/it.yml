@@ -1,0 +1,20 @@
+it:
+  SilverShop\DecimalQuantity\Extension\ProductDecimalQuantityExtension:
+    db_QuantityIsDecimal: 'Venduto in quantità decimali / frazionarie'
+    db_QuantityUnit: 'Unità di misura (es. m², kg, m)'
+    db_QuantityPrecision: 'Cifre decimali (0 = predefinito del modulo)'
+    db_QuantityStep: 'Incremento (0 = predefinito)'
+    db_QuantityMin: 'Quantità minima (0 = un incremento)'
+    db_QuantityMax: 'Quantità massima (0 = illimitata)'
+    Tab_Quantity: 'Quantità'
+  SilverShop\Model\Order:
+    Quantity: 'Quantità'
+  SilverShop\Model\OrderItem:
+    db_QuantityDecimal: 'Quantità decimale'
+  SilverShop\Page\Product:
+    db_QuantityIsDecimal: 'Venduto in quantità decimali / frazionarie'
+    db_QuantityUnit: 'Unità di misura (es. m², kg, m)'
+    db_QuantityPrecision: 'Cifre decimali (0 = predefinito del modulo)'
+    db_QuantityStep: 'Incremento (0 = predefinito)'
+    db_QuantityMin: 'Quantità minima (0 = un incremento)'
+    db_QuantityMax: 'Quantità massima (0 = illimitata)'
