@@ -1,11 +1,6 @@
 nl:
   SilverShop\DecimalQuantity\Extension\ProductDecimalQuantityExtension:
-    db_QuantityIsDecimal: 'Verkocht in decimale / fractionele hoeveelheden'
-    db_QuantityUnit: 'Maateenheid (bijv. m², kg, m)'
-    db_QuantityPrecision: 'Aantal decimalen (0 = standaard van de module)'
-    db_QuantityStep: 'Stapgrootte (0 = standaard)'
-    db_QuantityMin: 'Minimale hoeveelheid (0 = één stap)'
-    db_QuantityMax: 'Maximale hoeveelheid (0 = onbeperkt)'
+    QuantityIsDecimalDescription: 'Aangevinkt: dit product wordt in fractionele hoeveelheden besteld (bijv. 2,30 m²). Laat uit voor gewone hele aantallen.'
     Tab_Quantity: 'Hoeveelheid'
   SilverShop\Model\Order:
     Quantity: 'Hoeveelheid'

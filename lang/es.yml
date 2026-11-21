@@ -1,11 +1,6 @@
 es:
   SilverShop\DecimalQuantity\Extension\ProductDecimalQuantityExtension:
-    db_QuantityIsDecimal: 'Vendido en cantidades decimales / fraccionarias'
-    db_QuantityUnit: 'Unidad de medida (p. ej., m², kg, m)'
-    db_QuantityPrecision: 'Decimales (0 = valor predeterminado del módulo)'
-    db_QuantityStep: 'Incremento (0 = predeterminado)'
-    db_QuantityMin: 'Cantidad mínima (0 = un incremento)'
-    db_QuantityMax: 'Cantidad máxima (0 = ilimitada)'
+    QuantityIsDecimalDescription: 'Si está marcado, este producto se pide en cantidades fraccionarias (p. ej. 2,30 m²). Déjelo sin marcar para cantidades enteras.'
     Tab_Quantity: 'Cantidad'
   SilverShop\Model\Order:
     Quantity: 'Cantidad'

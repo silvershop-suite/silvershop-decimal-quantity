@@ -35,15 +35,6 @@ class ProductDecimalQuantityExtension extends Extension
         'QuantityMax' => 'Decimal(12,4)',
     ];
 
-    private static array $field_labels = [
-        'QuantityIsDecimal' => 'Sold in decimal / fractional quantities',
-        'QuantityUnit' => 'Unit of measure (e.g. m², kg, m)',
-        'QuantityPrecision' => 'Decimal places (0 = module default)',
-        'QuantityStep' => 'Step increment (0 = default)',
-        'QuantityMin' => 'Minimum quantity (0 = one step)',
-        'QuantityMax' => 'Maximum quantity (0 = unlimited)',
-    ];
-
     /** Decimal places when a product doesn't set its own. */
     private static int $default_precision = 2;
 
@@ -166,13 +157,15 @@ class ProductDecimalQuantityExtension extends Extension
                 $fields->addFieldToTab('Root.Quantity', $field);
             }
         }
+        $fields->fieldByName('Root.Quantity')?->setTitle(_t(self::class . '.Tab_Quantity', 'Quantity'));
 
         $flag = $fields->dataFieldByName('QuantityIsDecimal');
         if ($flag) {
-            $flag->setDescription(
+            $flag->setDescription(_t(
+                self::class . '.QuantityIsDecimalDescription',
                 'When ticked, this product is ordered in fractional amounts (e.g. 2.30 m²). '
                 . 'Leave off for normal whole-number quantities.'
-            );
+            ));
         }
     }
 }
