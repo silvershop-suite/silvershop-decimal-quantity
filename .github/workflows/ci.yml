@@ -52,3 +52,31 @@ jobs:
           SS_DATABASE_NAME: ss_test
           SS_SQLITE_DATABASE_PATH: ":memory:"
         run: vendor/bin/phpunit
+
+  # A shop without the optional module must boot too: a class that extends one of its classes would fail on flush.
+  standalone:
+    name: Without silvershop/stock
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: pdo, sqlite3, pdo_sqlite, intl, gd, zip
+          coverage: none
+
+      - name: Install dependencies
+        run: |
+          composer install --prefer-dist --no-interaction --no-progress
+          composer remove --dev silvershop/stock --no-interaction --no-progress
+
+      - name: Run PHPUnit
+        env:
+          SS_ENVIRONMENT_TYPE: dev
+          SS_DATABASE_CLASS: SQLite3Database
+          SS_DATABASE_NAME: ss_test
+          SS_SQLITE_DATABASE_PATH: ":memory:"
+        run: vendor/bin/phpunit

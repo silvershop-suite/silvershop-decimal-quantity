@@ -9,6 +9,12 @@ use SilverShop\Stock\Extensions\ProductStockExtension;
 use SilverShop\Stock\Model\ProductWarehouse;
 use SilverShop\Stock\Model\ProductWarehouseStock;
 
+// silvershop/stock is optional: without it this class stays undeclared,
+// because a flush loads every class and would fail on the missing parent.
+if (!class_exists(ProductStockExtension::class)) {
+    return;
+}
+
 /**
  * Decimal-aware stock for decimal-quantity buyables. The stock quantity column is already a {@code Varchar}
  * (so fractional levels fit with no migration); this subclass removes the {@code (int)} truncation on the

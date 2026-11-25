@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SilverShop\DecimalQuantity\Tests;
 
+use PHPUnit\Framework\Attributes\RequiresMethod;
 use SilverShop\Page\Product;
 use SilverShop\Stock\Model\ProductWarehouse;
 use SilverStripe\Control\HTTPRequest;
@@ -16,6 +17,7 @@ use SilverStripe\Dev\SapphireTest;
  * and moves stock by the exact decimal ordered. Integer products are unchanged. (Requires silvershop/stock
  * — a require-dev dep so CI exercises the integration.)
  */
+#[RequiresMethod(ProductWarehouse::class, 'create')]
 class DecimalStockTest extends SapphireTest
 {
     protected $usesDatabase = true;
